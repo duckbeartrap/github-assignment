@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService, StorageService } from '@services';
-import { IUser } from '@interfaces';
+import { IUser, IError } from '@interfaces';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,25 @@ import { Router } from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
 
-  githubUsers: IUser[] = [];
+  githubUsers: IUser[];
   gridView: boolean = true;
   previousSearches: string[];
+  loading: boolean = false;
+  errorMessage: string = '';
 
   constructor(private githubService: GithubService, private router: Router, private storageService: StorageService) {
+    this.loading = true;
     this.githubService.getUserList()
-        .subscribe(users => this.githubUsers = users)
+    .subscribe(
+      users => {
+        this.githubUsers = users;
+        this.loading = false;
+      }, 
+      (err: IError) => {
+        this.errorMessage = err.message;
+        this.loading = false;
+      }
+    );
     this.previousSearches = this.storageService.getSearches();
   }
 

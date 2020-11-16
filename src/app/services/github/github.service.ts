@@ -37,7 +37,7 @@ export class GithubService {
         q: decodeURIComponent('followers%3A%3E%3D10000'),
         type: 'Users',
         page: '1',
-        per_page: '2'
+        per_page: '10'
       }
     };
 
@@ -66,7 +66,7 @@ export class GithubService {
     const options = {
       params: {
         page: '1',
-        per_page: '2'
+        per_page: '3'
       }
     };
     return this.http.get(environment.API_URL + 'users/' + id + '/repos', options)
@@ -136,11 +136,9 @@ export class GithubService {
     return forkJoin([this.getSingleUser(id), this.getRepo(id), this.getOrganizations(id)])
       .pipe( 
         map( res => {
-            console.log(res);
             const detailedUser: IUser = res[0];
             detailedUser.repos = res[1];
             detailedUser.orgs = res[2];
-            console.log(detailedUser);
             return detailedUser;
           }
         ),

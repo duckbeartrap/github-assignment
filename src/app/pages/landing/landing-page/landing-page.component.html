@@ -1,20 +1,27 @@
 <app-search-bar (onSearch)="searchUser($event)"></app-search-bar>
 <app-previous-searches [previousSearches]="previousSearches" (onSearch)="searchUser($event)"></app-previous-searches>
 <app-page-heading [showGridToggle]="true" [gridView]="gridView" (onGridToggle)="toggleGridView($event)"></app-page-heading>
-<ul class="ga-list" *ngIf="!gridView; else elseBlock">
-  <ng-container *ngFor="let user of githubUsers">
-    <li class="ga-list__item">
-      <app-list-item [userData]="user"></app-list-item>
-    </li>
-  </ng-container>
-</ul>
 
-<ng-template #elseBlock>
-  <ul class="ga-grid">
-    <ng-container *ngFor="let user of githubUsers">
-      <li class="ga-grid__item">
-        <app-grid-item [userData]="user"></app-grid-item>
-      </li>
-    </ng-container>
-  </ul>
-</ng-template>
+<ng-container *ngIf="githubUsers">
+    <ul class="ga-list" *ngIf="!gridView; else elseBlock">
+        <ng-container *ngFor="let user of githubUsers">
+          <li class="ga-list__item">
+            <app-list-item [userData]="user"></app-list-item>
+          </li>
+        </ng-container>
+      </ul>
+      
+      <ng-template #elseBlock>
+        <ul class="ga-grid">
+          <ng-container *ngFor="let user of githubUsers">
+            <li class="ga-grid__item">
+              <app-grid-item [userData]="user"></app-grid-item>
+            </li>
+          </ng-container>
+        </ul>
+      </ng-template>
+</ng-container>
+
+
+<app-not-found *ngIf="!loading && !githubUsers" [text]="errorMessage"></app-not-found>
+<app-loader *ngIf="loading"></app-loader>
