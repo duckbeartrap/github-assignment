@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageHeadingComponent } from '@sharedComponents';
-
+import { PageHeadingComponent, NotFoundComponent, LoaderComponent } from '@sharedComponents';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [PageHeadingComponent],
+  declarations: [PageHeadingComponent, NotFoundComponent, LoaderComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
-    PageHeadingComponent
+    PageHeadingComponent,
+    NotFoundComponent, 
+    LoaderComponent
   ]
 })
 export class SharedModule { }

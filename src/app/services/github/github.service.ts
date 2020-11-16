@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { map, switchMap, flatMap } from 'rxjs/operators';
-import { Observable,  forkJoin } from 'rxjs';
+import { ErrorService } from '@services';
+import { map, switchMap, catchError } from 'rxjs/operators';
+import { Observable,  forkJoin, throwError } from 'rxjs';
 import { IUser, IRepo, IOrganization} from '@interfaces';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { IUser, IRepo, IOrganization} from '@interfaces';
 })
 export class GithubService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private errorService: ErrorService) { }
 
   private getSingleUser(id: string): Observable<IUser>{
     return this.http.get(environment.API_URL + 'users/' + id)
@@ -25,7 +26,8 @@ export class GithubService {
               fullName: res['name']
             }
             return user;
-          })
+          }),
+          catchError(err => throwError(this.errorService.handleError(err)))
         )
   }
 
@@ -55,7 +57,8 @@ export class GithubService {
           });
 
           return users;
-        })
+        }),
+        catchError(err => throwError(this.errorService.handleError(err)))
       )
   }
 
@@ -79,7 +82,8 @@ export class GithubService {
           });
 
           return repos;
-        })
+        }),
+        catchError(err => throwError(this.errorService.handleError(err)))
       )
   }
 
@@ -103,7 +107,8 @@ export class GithubService {
               orgs.push(org);
             })
             return orgs;
-          })
+          }),
+          catchError(err => throwError(this.errorService.handleError(err)))
         )
   }
 
@@ -118,11 +123,12 @@ export class GithubService {
                   map( repos => {
                     user.repos = repos;
                     return user;
-                  })
+                  }),
                 )
             })
           )
-        })
+        }),
+        catchError(err => throwError(this.errorService.handleError(err)))
       )
   }
 
@@ -137,7 +143,8 @@ export class GithubService {
             console.log(detailedUser);
             return detailedUser;
           }
-        )
+        ),
+        catchError(err => throwError(this.errorService.handleError(err)))
       )
   }
 }
