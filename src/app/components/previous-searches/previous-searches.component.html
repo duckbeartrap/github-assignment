@@ -1,0 +1,12 @@
+<div class="ga-previous">
+  <div class="ga-previous__container" [ngStyle]="{'justify-content': previousSearches.length < 1 ? 'center' : 'space-between'}">
+    <ng-container *ngFor="let search of previousSearches">
+      <div class="ga-previous__search" (click)="searchUser(search)">
+        <span>{{search}}</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="previousSearches.length < 1">
+        <span class="ga-previous__empty">No previous searches</span>
+    </ng-container>
+  </div>
+</div>

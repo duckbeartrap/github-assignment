@@ -1,0 +1,7 @@
+<div class="ga-heading__container">
+    <span class="ga-heading">{{headingText}}</span>
+    <div class="ga-heading__toggle" *ngIf="showGridToggle">
+        <i class="material-icons ga-heading__toggle" [ngClass]="{'ga-heading__toggle__selected': !gridView}" (click)="toggleGrid(false)">view_list</i>
+        <i class="material-icons ga-heading__toggle" [ngClass]="{'ga-heading__toggle__selected': gridView}" (click)="toggleGrid(true)">view_module</i>
+    </div>
+</div>

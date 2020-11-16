@@ -1,0 +1,31 @@
+<app-page-heading [headingText]="user.name" [showGridToggle]="false"></app-page-heading>
+<div class="ga-detailed__container" *ngIf="user">
+    <div class="ga-detailed__photo__container">
+        <div class="ga-detailed__photo" [ngStyle]="{'background': 'url('+user.avatar+')', 'background-size': 'cover', 'background-position': 'center'}">
+
+        </div>
+    </div>
+    <div class="ga-detailed__main__container">
+        <div class="ga-detailed__main__credentials ga-detailed__main__container">
+            <a class="ga-detailed__main__credentials__name" href="{{user.url}}">{{user.fullName}}</a>
+            <span class="ga-detailed__main__credentials__type">{{user.type}}</span>
+        </div>
+        <app-page-heading headingText="Repos" [showGridToggle]="false"></app-page-heading>
+        <div class="ga-detailed__main__repos ga-detailed__main__container">
+            <ng-container *ngFor="let repo of user.repos">
+                <a href="{{repo.url}}">{{repo.name}}</a>
+            </ng-container>
+        </div>
+        <app-page-heading headingText="Organizations" [showGridToggle]="false"></app-page-heading>
+        <div class="ga-detailed__main__orgs ga-detailed__main__container">
+            <ng-container *ngFor="let org of user.orgs">
+                <div class="ga-detailed__main__orgs__item">
+                    <div class="ga-detailed__main__orgs__photo" [ngStyle]="{'background': 'url('+org.avatar+')', 'background-size': 'cover', 'background-position': 'center'}">
+
+                    </div>
+                    <a class="ga-detailed__main__orgs__name" href="{{org.url}}">{{org.name}}</a>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+@import 'app-colors.scss';
+
+.ga{
+    &-previous{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        &__container{
+            width: 100%;
+            max-width: 600px;
+            padding: 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        &__search{
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid black;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0px;
+            background: white;
+            &:hover{
+                background: $primaryColor;
+                color: white;
+                border-color: $primaryColor;
+            }
+        }
+
+        &__empty{
+            align-self: center;
+            justify-self: center;
+        }
+    }
+}

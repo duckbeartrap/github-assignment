@@ -1,0 +1,25 @@
+<div class="ga-item">
+  <div class="ga-item__photo__container">
+    <div class="ga-item__photo" [ngStyle]="{'background': 'url('+userData.avatar+')', 'background-size': 'cover', 'background-position': 'center'}">
+
+    </div>
+  </div>
+  <div class="ga-item__credentials__container">
+    <a class="ga-item__credentials" routerLink="{{userData.name}}">{{userData.name}}</a>
+    <span class="ga-item__credentials__type">{{userData.type}}</span>
+  </div>
+  <div class="ga-item__repos__container">
+    <span class="ga-item__repos__heading">
+        User Repos
+    </span>
+    <ul class="ga-item__repos">
+        <li *ngFor="let repo of userData.repos">
+          <a href="{{repo.url}}">{{repo.name}}</a>
+        </li>
+
+        <li *ngIf="userData.repos.length < 1">
+          <span>No repos found</span>
+        </li>
+    </ul>
+  </div>
+</div>
